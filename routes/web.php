@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +18,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+});
+
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
+    Route::get('/subscribe', function () {
+        return view('subscribe',[ 
+            'intent' => auth()->user()->createSetupIntent(),
+        ]);
+    })->name('subscribe');
+});
+
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
+    Route::post('/subscribe', function (Request $request) {
+        // dd($request->all());
+        auth()->user()->newSubscription('cashier', $request->plan)->create($request->paymentMethod);
+        return redirect('dashboard');
+    })->name('subscribe.post');
 });
