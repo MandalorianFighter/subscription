@@ -25,6 +25,12 @@
                         {{ __('Members') }}
                     </x-jet-nav-link>
                     @endif
+                    <x-jet-nav-link href="{{ route('charge') }}" :active="request()->routeIs('charge')">
+                        {{ __('Charge') }}
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('invoices') }}" :active="request()->routeIs('invoices')">
+                        {{ __('Invoices') }}
+                    </x-jet-nav-link>
                 </div>
             </div>
 
