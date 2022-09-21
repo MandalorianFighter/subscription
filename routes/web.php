@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Laravel\Cashier\Events\WebhookReceived;
+use App\Listeners\StripeEventListener;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,5 +69,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
             'product' => 'One Time Fee',
         ]);
     });
+
 });
 
+Route::post('/stripe/webhook', 'App\Http\Controllers\WebhookController@handleWebhook');
