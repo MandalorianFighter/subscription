@@ -20,6 +20,11 @@
                         {{ __('Subscribe') }}
                     </x-jet-nav-link>
                     @endif
+                    @if(!auth()->user()->subscribed('cashier'))
+                    <x-jet-nav-link href="{{ route('subscribe2') }}" :active="request()->routeIs('subscribe2')">
+                        {{ __('Subscribe2') }}
+                    </x-jet-nav-link>
+                    @endif
                     @if(auth()->user()->subscribed('cashier'))
                     <x-jet-nav-link href="{{ route('members') }}" :active="request()->routeIs('members')">
                         {{ __('Members') }}

@@ -16,11 +16,11 @@
         <!-- Styles -->
         @livewireStyles
         <style>
-/**
+/* *
  * The CSS shown here will not be introduced in the Quickstart guide, but shows
  * how you can use CSS to style your Element's container.
  */
-.StripeElement {
+/* .StripeElement {
   box-sizing: border-box;
 
   height: 40px;
@@ -46,7 +46,7 @@
 
 .StripeElement--webkit-autofill {
   background-color: #fefde5 !important;
-}
+} */ 
         </style>
     </head>
     <body class="font-sans antialiased">

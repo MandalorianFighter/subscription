@@ -31,11 +31,23 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         ]);
     })->name('subscribe');
 
+    Route::middleware(['nonPayingCustomer'])->get('/subscribe2', function () {
+        return view('subscribe2',[ 
+            'intent' => auth()->user()->createSetupIntent(),
+        ]);
+    })->name('subscribe2');
+
     Route::middleware(['nonPayingCustomer'])->post('/subscribe', function (Request $request) {
         // dd($request->all());
         auth()->user()->newSubscription('cashier', $request->plan)->create($request->paymentMethod);
         return redirect('dashboard');
     })->name('subscribe.post');
+
+    Route::middleware(['nonPayingCustomer'])->post('/subscribe2', function (Request $request) {
+        // dd($request->all());
+        auth()->user()->newSubscription('cashier', $request->plan)->create($request->paymentMethod);
+        return redirect('dashboard');
+    })->name('subscribe2.post');
 
     Route::middleware(['payingCustomer'])->get('/members', function () {
         return view('members');
